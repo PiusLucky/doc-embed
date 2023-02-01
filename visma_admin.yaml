@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Visma Admin API
+  description: Interact with synkio.se
+  version: 1.0.0
+servers:
+  - url: https://route.synkio.se/newvisma
+paths:
+  /api/tasks/:
+    post:
+      tags:
+        - Unique route
+      summary: Send a task
+      description: Send a task to Visma Admin software
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                type: job
+                sub_type: "{{sub_type}}"
+                arguments:
+                  sys_path: "{{sys_path}}"
+                  company_path: "{{company_path}}"
+                  username: "{{visma_username}}"
+                  password: "{{visma_password}}"
+                  data:
+                    {}
+                install: '{{connector_uid}}'
+                live_timeout: 30
+                callback: "{{callback_url}}"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json: {}
